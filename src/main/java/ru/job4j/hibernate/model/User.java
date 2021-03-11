@@ -1,12 +1,26 @@
 package ru.job4j.hibernate.model;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "j_user")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name = "role_id")
     private Role role;
+
+    public static User of(String name, Role role) {
+        User user = new User();
+        user.setName(name);
+        user.setRole(role);
+        return user;
+    }
 
     public int getId() {
         return id;

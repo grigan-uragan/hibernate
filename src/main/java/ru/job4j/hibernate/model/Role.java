@@ -1,8 +1,13 @@
 package ru.job4j.hibernate.model;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "j_role")
 public class Role {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
 
@@ -12,6 +17,12 @@ public class Role {
     public Role(int id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public static Role of(String name) {
+        Role role = new Role();
+        role.setName(name);
+        return role;
     }
 
     public int getId() {

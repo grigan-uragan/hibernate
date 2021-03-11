@@ -17,5 +17,7 @@
         <property name="use_sql_comments">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
 
+        <mapping class="ru.job4j.hibernate.model.User"/>
+        <mapping class="ru.job4j.hibernate.model.Role"/>
     </session-factory>
 </hibernate-configuration>
