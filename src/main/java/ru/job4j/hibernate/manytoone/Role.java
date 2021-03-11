@@ -1,4 +1,4 @@
-package ru.job4j.hibernate.model;
+package ru.job4j.hibernate.manytoone;
 
 import javax.persistence.*;
 import java.util.ArrayList;

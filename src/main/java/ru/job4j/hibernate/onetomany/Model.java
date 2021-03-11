@@ -1,24 +1,20 @@
-package ru.job4j.hibernate.model;
+package ru.job4j.hibernate.onetomany;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "models")
-public class Car {
+public class Model {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Model> models = new ArrayList<>();
 
-    public Car() {
+    public Model() {
     }
 
-    public Car(String name) {
+    public Model(String name) {
         this.name = name;
     }
 
@@ -38,18 +34,6 @@ public class Car {
         this.name = name;
     }
 
-    public List<Model> getModels() {
-        return models;
-    }
-
-    public void setModels(List<Model> models) {
-        this.models = models;
-    }
-
-    public void addModel(Model model) {
-        this.models.add(model);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -58,8 +42,8 @@ public class Car {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Car car = (Car) o;
-        return id == car.id;
+        Model model = (Model) o;
+        return id == model.id;
     }
 
     @Override

@@ -17,9 +17,13 @@
         <property name="use_sql_comments">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
 
-        <mapping class="ru.job4j.hibernate.model.User"/>
-        <mapping class="ru.job4j.hibernate.model.Role"/>
-        <mapping class="ru.job4j.hibernate.model.Car"/>
-        <mapping class="ru.job4j.hibernate.model.Model"/>
+        <mapping class="ru.job4j.hibernate.manytoone.User"/>
+        <mapping class="ru.job4j.hibernate.manytoone.Role"/>
+        <mapping class="ru.job4j.hibernate.onetomany.Car"/>
+        <mapping class="ru.job4j.hibernate.onetomany.Model"/>
+        <mapping class="ru.job4j.hibernate.manytomany.Address"/>
+        <mapping class="ru.job4j.hibernate.manytomany.Person"/>
+        <mapping class="ru.job4j.hibernate.manytomany.Book"/>
+        <mapping class="ru.job4j.hibernate.manytomany.Author"/>
     </session-factory>
 </hibernate-configuration>

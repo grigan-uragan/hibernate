@@ -1,4 +1,4 @@
-package ru.job4j.hibernate.util;
+package ru.job4j.hibernate.manytoone;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -7,8 +7,6 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.job4j.hibernate.model.Role;
-import ru.job4j.hibernate.model.User;
 
 import java.util.List;
 

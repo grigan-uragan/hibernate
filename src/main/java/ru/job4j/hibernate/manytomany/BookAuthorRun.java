@@ -1,4 +1,4 @@
-package ru.job4j.hibernate.util;
+package ru.job4j.hibernate.manytomany;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -7,11 +7,9 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.job4j.hibernate.model.Car;
-import ru.job4j.hibernate.model.Model;
 
-public class CarsHbnRun {
-    private static final Logger LOG = LoggerFactory.getLogger(CarsHbnRun.class);
+public class BookAuthorRun {
+    private static final Logger LOG = LoggerFactory.getLogger(BookAuthorRun.class);
 
     public static void main(String[] args) {
         StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
@@ -23,18 +21,21 @@ public class CarsHbnRun {
                     .buildSessionFactory();
             Session session = factory.openSession();
             session.beginTransaction();
-            Car ford = new Car("Ford");
-            Model focus = new Model("Focus");
-            Model mustang = new Model("Mustang");
-            Model fiesta = new Model("Fiesta");
-            Model transit = new Model("Transit");
-            Model kuga = new Model("Kuga");
-            ford.addModel(focus);
-            ford.addModel(mustang);
-            ford.addModel(fiesta);
-            ford.addModel(transit);
-            ford.addModel(kuga);
-            session.save(ford);
+            Book first = Book.of("Head First");
+            Book second = Book.of("Java for beginners");
+            Book three = Book.of("Lear Java with Uncle Bob");
+            Book four = Book.of("Clean Code");
+            Author bob = Author.of("Robert Martin");
+            Author kathy = Author.of("Kathy Sierra");
+            bob.addBooks(first);
+            bob.addBooks(three);
+            bob.addBooks(four);
+            kathy.addBooks(first);
+            kathy.addBooks(second);
+            session.persist(bob);
+            session.persist(kathy);
+            Author author = session.get(Author.class, 1);
+            session.remove(author);
             session.getTransaction().commit();
             session.close();
         } catch (Exception e) {
@@ -42,5 +43,6 @@ public class CarsHbnRun {
         } finally {
             StandardServiceRegistryBuilder.destroy(registry);
         }
+
     }
 }

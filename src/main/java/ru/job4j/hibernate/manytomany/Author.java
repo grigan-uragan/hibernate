@@ -1,20 +1,25 @@
-package ru.job4j.hibernate.model;
+package ru.job4j.hibernate.manytomany;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "j_user")
-public class User {
+@Table(name = "authors")
+public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
 
-    public static User of(String name) {
-        User user = new User();
-        user.setName(name);
-        return user;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Book> books = new ArrayList<>();
+
+    public static Author of(String name) {
+        Author author = new Author();
+        author.name = name;
+        return author;
     }
 
     public int getId() {
@@ -33,6 +38,18 @@ public class User {
         this.name = name;
     }
 
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
+
+    public void addBooks(Book book) {
+        books.add(book);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -41,8 +58,8 @@ public class User {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        User user = (User) o;
-        return id == user.id;
+        Author author = (Author) o;
+        return id == author.id;
     }
 
     @Override

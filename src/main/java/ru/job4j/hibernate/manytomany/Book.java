@@ -1,21 +1,20 @@
-package ru.job4j.hibernate.model;
+package ru.job4j.hibernate.manytomany;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "models")
-public class Model {
+@Table(name = "books")
+public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String name;
+    private String title;
 
-    public Model() {
-    }
-
-    public Model(String name) {
-        this.name = name;
+    public static Book of(String title) {
+        Book book = new Book();
+        book.title = title;
+        return book;
     }
 
     public int getId() {
@@ -26,12 +25,12 @@ public class Model {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @Override
@@ -42,8 +41,8 @@ public class Model {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Model model = (Model) o;
-        return id == model.id;
+        Book book = (Book) o;
+        return id == book.id;
     }
 
     @Override
