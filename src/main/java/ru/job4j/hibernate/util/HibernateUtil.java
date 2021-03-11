@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import ru.job4j.hibernate.model.Role;
 import ru.job4j.hibernate.model.User;
 
-import java.io.File;
 import java.util.List;
 
 public class HibernateUtil {
@@ -24,13 +23,12 @@ public class HibernateUtil {
             SessionFactory factory = new MetadataSources(registry)
                     .buildMetadata()
                     .buildSessionFactory();
-            Role role = create(Role.of("ADMIN"), factory);
-            create(User.of("Grigory", role), factory);
-            for (User user : findAll(User.class, factory)) {
-                System.out.println(user.getId());
-                System.out.println(user.getName());
-                System.out.println(user.getRole());
-            }
+            User one = User.of("First");
+            User two = User.of("Second");
+            Role role = Role.of("ADMIN");
+            role.addUser(one);
+            role.addUser(two);
+            create(role, factory);
         } catch (Exception e) {
             LOG.error("hibernate exception", e);
         } finally {

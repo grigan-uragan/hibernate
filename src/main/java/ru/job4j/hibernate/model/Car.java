@@ -6,39 +6,20 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "j_role")
-public class Role {
+@Table(name = "models")
+public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<User> users = new ArrayList<>();
+    private List<Model> models = new ArrayList<>();
 
-    public Role() {
+    public Car() {
     }
 
-    public Role(int id, String name) {
-        this.id = id;
+    public Car(String name) {
         this.name = name;
-    }
-
-    public static Role of(String name) {
-        Role role = new Role();
-        role.setName(name);
-        return role;
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
-
-    public void addUser(User user) {
-        this.users.add(user);
     }
 
     public int getId() {
@@ -57,6 +38,18 @@ public class Role {
         this.name = name;
     }
 
+    public List<Model> getModels() {
+        return models;
+    }
+
+    public void setModels(List<Model> models) {
+        this.models = models;
+    }
+
+    public void addModel(Model model) {
+        this.models.add(model);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -65,19 +58,12 @@ public class Role {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Role role = (Role) o;
-        return id == role.id;
+        Car car = (Car) o;
+        return id == car.id;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Role{" + "id="
-                + id + ", name='"
-                + name + '\'' + '}';
     }
 }

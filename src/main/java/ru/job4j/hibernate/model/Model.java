@@ -4,17 +4,18 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "j_user")
-public class User {
+@Table(name = "models")
+public class Model {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
 
-    public static User of(String name) {
-        User user = new User();
-        user.setName(name);
-        return user;
+    public Model() {
+    }
+
+    public Model(String name) {
+        this.name = name;
     }
 
     public int getId() {
@@ -41,8 +42,8 @@ public class User {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        User user = (User) o;
-        return id == user.id;
+        Model model = (Model) o;
+        return id == model.id;
     }
 
     @Override
