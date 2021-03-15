@@ -34,5 +34,8 @@
         <mapping class="ru.job4j.hibernate.manytomany.model.City"/>
         <mapping class="ru.job4j.hibernate.manytomany.model.Human"/>
         <mapping class="ru.job4j.hibernate.date.Product"/>
+        <mapping class="ru.job4j.hibernate.car.Engine"/>
+        <mapping class="ru.job4j.hibernate.car.Ford"/>
+        <mapping class="ru.job4j.hibernate.car.Driver"/>
     </session-factory>
 </hibernate-configuration>
