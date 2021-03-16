@@ -38,5 +38,7 @@
         <mapping class="ru.job4j.hibernate.car.Ford"/>
         <mapping class="ru.job4j.hibernate.car.Driver"/>
         <mapping class="ru.job4j.hibernate.hql.Candidate"/>
+        <mapping class="ru.job4j.hibernate.hql.Vacancy"/>
+        <mapping class="ru.job4j.hibernate.hql.VacancyBase"/>
     </session-factory>
 </hibernate-configuration>

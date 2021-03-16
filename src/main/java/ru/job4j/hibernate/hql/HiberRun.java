@@ -15,19 +15,20 @@ public class HiberRun {
 
     public static void main(String[] args) {
         SessionFactory factory = HibernateUtil.getSessionFactory();
-        Candidate candidate = Candidate.of("Antony", "exp", 11.00);
+        Candidate candidate = Candidate.of("Mike", "jun", 110.00);
+        VacancyBase base = VacancyBase.of("superJob.ru", true);
+        Vacancy javaDev = Vacancy.of("QA engineer", 70.00);
+        Vacancy jsDev = Vacancy.of("Ruby developer", 20.00);
+        base.addVacancy(javaDev);
+        base.addVacancy(jsDev);
+        candidate.setBase(base);
         create(factory, candidate);
-        List<Candidate> list = allCandidates(factory);
-        Candidate newCandidate = Candidate.of("Mark", "exp", 90.00);
-        list.forEach(System.out::println);
-        update(factory, newCandidate, 4);
-        Candidate byId = findById(factory, 4);
+        List<Candidate> candidates = allCandidates(factory);
+        candidates.forEach(System.out::println);
+        Candidate byId = findById(factory, 2);
         System.out.println(byId);
-        List<Candidate> byName = findByName(factory, "Tom");
-        byName.forEach(System.out::println);
-        delete(factory, 1);
-        List<Candidate> newList = allCandidates(factory);
-        newList.forEach(System.out::println);
+        List<Candidate> robert = findByName(factory, "Robert");
+        robert.forEach(System.out::println);
     }
 
     public static void delete(SessionFactory factory, int id) {
@@ -50,16 +51,21 @@ public class HiberRun {
     }
 
     public static List<Candidate> allCandidates(SessionFactory factory) {
-        return tx(session -> session.createQuery("from Candidate").list(), factory);
+        return tx(session -> session.createQuery("select distinct c from Candidate c"
+                + " join fetch c.base vb join fetch vb.vacancies v").list(), factory);
     }
 
     public static Candidate findById(SessionFactory factory, int id) {
-        return tx(session -> session.get(Candidate.class, id), factory);
+        return tx(session -> session.createQuery(
+                "select distinct c from Candidate c join fetch c.base vb "
+                        + "join fetch vb.vacancies v where c.id = :id", Candidate.class
+        ).setParameter("id", id).uniqueResult(), factory);
     }
 
     public static List<Candidate> findByName(SessionFactory factory, String name) {
         return tx(session -> session
-                .createQuery("from Candidate c where c.name = :name")
+                .createQuery("select distinct c from Candidate c join fetch"
+                        + " c.base vb join fetch vb.vacancies v where c.name = :name")
                 .setParameter("name", name).list(), factory);
     }
 
